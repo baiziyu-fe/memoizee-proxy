@@ -8,6 +8,6 @@ export default class ExpiredCacheItem<V> {
   constructor(data: V) {
     this.data = data
     // The time when the object is created is set to the time when the data is obtained
-    this.cacheTime = (new Date()).getTime()
+    this.cacheTime = Date.now();
   }
 }

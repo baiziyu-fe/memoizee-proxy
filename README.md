@@ -1,47 +1,47 @@
-# memoizee-proxy 
+# memoizee-proxy
 
-[![Build Status](https://www.travis-ci.org/wsafight/memoizee-proxy.svg?branch=main)](https://www.travis-ci.org/wsafight/memoizee-proxy)
-[![NPM Version](https://badgen.net/npm/v/memoizee-proxy)](https://www.npmjs.com/package/memoizee-proxy)
 
-Read this in other languages: [简体中文](https://github.com/wsafight/memoizee-proxy/blob/main/README.zh-CN.md)
+基于 Proxy 的备忘录
 
-Memoize based on Proxy.
+开发历程可以参考博客 [手写一个基于 Proxy 的缓存库](https://github.com/wsafight/personBlog/issues/34)
 
-## features
+## 特性
 
-- [x] Works with any type, any length of function arguments - optional serialization.
-- [x] Support for promises and asynchronous functions.
-- [x] Configurable weak provides a WeakMap (friendly garbage collection).
-- [x] Cache can be managed manually.
-- [x] Cache size can be limited on LRU basis.
-- [x] Optional reference counter mode, that allows more sophisticated cache management.
-- [x] unit tests.
+- [x] 适用于任何类型，任意长度的函数参数 – 可选序列化。
+- [x] 支持 Promise 和异步函数。
+- [x] 可配置 weak 提供 WeakMap(友好的垃圾回收)。
+- [x] 可以手动管理缓存。
+- [x] 使用 LRU 进行缓存限制。
+- [x] 可选的引用计数器模式，允许更复杂的缓存管理。
+- [x] 单元测试。
 
-## API
-
-| Property | Description | Type | Default |
-| :----| :---- | :---- | :---- |
-| normalizer | Generates a unique value based on the current parameter | (args: any[]) => string | Array.from(argument).join(',') |
-| weak | Using WeakMap  | boolean | false |
-| maxAge | Timeout duration, expired delete | number | undefined |
-| max | Maximum number of items stored  | number | undefined |
-| manual | Enable manage the cache manually  | boolean | false |
-| refCounter | Enable reference counting | boolean | false |
-| dispose | Called right before an item is evicted from the cache | (value: T) => void | undefined |
-| closeable | Provide use cache toggle function | boolean | false |
-
-## Installation
+## 安装
 
 ```bash
 npm install memoizee-proxy
 ```
-or
+
+或者
 
 ```bash
 yarn add memoizee-proxy
 ```
 
-## Usage
+## API
+
+| 参数 | 说明 | 类型 | 默认值 |
+| :----| :---- | :---- | :---- |
+| normalizer | 基于当前参数生成唯一值 | (args: any[]) => string | Array.from(argument).join(',') |
+| weak | 是否使用 WeakMap  | boolean | false |
+| maxAge | 超时时长，过时删除 | number | undefined |
+| max | 存储的最大项目数  | number | undefined |
+| manual | 启用手动管理  | boolean | false |
+| refCounter | 启动引用计数 | boolean | false |
+| dispose | 在从缓存中去除之前的回调函数 | (value: T) => void | undefined |
+| closeable | 提供是否使用缓存函数 | boolean | false |
+
+
+## 用法
 
 ```ts
 import {memoizee} from 'memoizee-proxy'
@@ -71,30 +71,29 @@ memoized(3, 7); // Cache hit
 ## Changelog
 
 ### 0.1.9
-- The build tool was changed from microbundle to tsdx
+- 构建工具由 microbundle 修改为 tsdx
 
 ### 0.1.6
-- Add the closeable parameter to operate on and off the cache
+- 添加 closeable 参数以便操作缓存开启和关闭
 
 ### 0.1.3
-- Modify the packaging tool to Rome (modify the default export)
-- Export the other two cache classes ExpiredLRUCache RefCache
+- 修改打包工具为 Rome(修改默认导出)
+- 导出其他两种 cache 类 ExpiredLRUCache RefCache
 
 ### 0.0.4
-- fix cacheRef clear method missing cacheRef cleanup.
-- remove "max" and "maxAge" options cannot exist at the same time.
+- 修复 cacheRef clear 方法缺少 cacheRef 清理。
+- 删除 “max” 和 “maxAge” 不能同时存在。
+
 
 ### 0.0.3
-- fix the options "max". if the added value is greater than or equal to max, throw error.
+- 修复配置 max,如果添加的值大于等于 max 将会报错
 
 ### 0.0.2
-- Basically completed, added max, maxAge to provide data management.
-- Manual is added to control the cache manually.
-- Reference count cache added.
-- Add the dispose function to call the control value when deleting data.
-- Add unit tests.
-
+- 基本完成，添加了 max， maxAge 提供数据管理。
+- 添加了 manual，可以手动控制缓存。
+- 添加了引用计数缓存。
+- 添加 dispose 函数，可以在删除数据时调用控制 value。
+- 添加单元测试。
 
 ### 0.0.1
-- Basically available, add parameters "normalizer"、 "weak" 、"timeout"
-
+- 基本可用，添加了 "normalizer"， "weak"， "timeout" 参数

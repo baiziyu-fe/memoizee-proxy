@@ -31,7 +31,7 @@ export default class ExpiredLRUCache<V> extends BaseCacheWithDispose<V, ExpiredC
   private isOverTime(item: ExpiredCacheItem<V>) {
 
     // Get the current time stamp of the system
-    const currentTime = (new Date()).getTime()
+    const currentTime = Date.now();
 
     // Gets the number of millimeters in the past between the current time and the storage time
     const overTime = currentTime - item.cacheTime
